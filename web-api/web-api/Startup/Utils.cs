@@ -1,4 +1,5 @@
 ﻿using web_api.Config;
+using web_api.State;
 
 namespace web_api.Startup
 {
@@ -17,6 +18,8 @@ namespace web_api.Startup
         {
             IConfiguration config = hostContext.Configuration;
             _ = services.AddConfigCustom<ResponseArray>(config, "ResponseArray");
+            services.AddSingleton<IState, DictionaryState>();
+            services.AddSingleton<IHighLevelStateManager, BasicHighLevelStateManager>();
         }
         public static IServiceCollection AddConfigCustom<T>(
             this IServiceCollection services,
