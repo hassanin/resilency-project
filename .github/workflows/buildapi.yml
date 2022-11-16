@@ -9,9 +9,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./web-api
+    # defaults:
+    #   run:
+    #     working-directory: ./web-api
 
     steps:
     - uses: actions/checkout@v2
@@ -22,7 +22,9 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
-    - run: |
+    - name: 'docker build and push'
+      working-directory: ./web-api
+      run: |
         docker build ./web-api -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.REPO_NAME }}:${{ github.sha }}
         docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.REPO_NAME }}:${{ github.sha }}
 
