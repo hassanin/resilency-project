@@ -1,6 +1,6 @@
 using static ResilencyClient.Startup.Utils;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
+//  https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory
 //Explains how to do retry
 // https://stackoverflow.com/questions/62084405/polly-retry-with-different-url
 builder.Host.ConfigureAppConfiguration(ConfigureAppConfiguration)

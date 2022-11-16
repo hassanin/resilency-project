@@ -19,7 +19,8 @@ namespace web_api.Controllers
             _responseArray = responseArray.Value;
             _highLevelStateManager = highLevelStateManager;
             var maxCount = _responseArray.ResponseProfiles[0].NumRequests;
-            _semaphore = new(0, maxCount);
+            Console.WriteLine($"max count is {maxCount}");
+            _semaphore = new(maxCount, maxCount);
         }
 
         [HttpGet]
@@ -28,7 +29,10 @@ namespace web_api.Controllers
         {
             if (_highLevelStateManager.PrimaryEndpointActive)
             {
+                Console.WriteLine("Before wait one");
                 _semaphore.WaitOne();
+
+                Console.WriteLine("After wait one");
                 int waitTime = _responseArray.ResponseProfiles[0].ResponseTimeMilliSeconds;
                 await Task.Delay(waitTime);
                 _semaphore.Release();

@@ -1,5 +1,5 @@
-﻿using ResilencyClient.Config;
-
+﻿using Polly;
+using ResilencyClient.Config;
 namespace ResilencyClient.Startup
 {
     public static class Utils
@@ -19,9 +19,20 @@ namespace ResilencyClient.Startup
             IConfiguration config = hostContext.Configuration;
             Console.WriteLine(nameof(ApplicationConfig));
             _ = services.AddConfigCustom<ApplicationConfig>(config, nameof(ApplicationConfig));
-            //_ = services.AddConfigCustom<ResponseArray>(config, "ResponseArray");
-            //services.AddSingleton<IState, DictionaryState>();
-            //services.AddSingleton<IHighLevelStateManager, BasicHighLevelStateManager>();
+            var appConfig = config.GetSection(nameof(ApplicationConfig)).Get<ApplicationConfig>();
+
+            services.AddHttpClient("Basic", client =>
+            {
+                client.BaseAddress = appConfig.PrimaryBackendUrl;
+                //client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
+            }).AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+                {
+                    TimeSpan.FromSeconds(1),
+                    TimeSpan.FromSeconds(5),
+                    TimeSpan.FromSeconds(10),
+                }));
+            //.AddTransientHttpErrorPolicy(builder => builder.FallbackAsync(;
+
         }
         public static IServiceCollection AddConfigCustom<T>(
             this IServiceCollection services,
