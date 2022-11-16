@@ -3,9 +3,9 @@ name: Linux Container Node Workflow
 on: [push]
 
 env:
-  -APP_NAME: 'apimbackend1'
-  -ACR_NAME: 'apimcr1'
-  -REPO_NAME: 'webapi'
+  APP_NAME: 'apimbackend1'
+  ACR_NAME: 'apimcr1'
+  REPO_NAME: 'webapi'
 jobs:
   build:
     runs-on: ubuntu-latest
