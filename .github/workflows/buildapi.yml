@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./web-api/web-api
+        working-directory: ./web-api
 
     steps:
     - uses: actions/checkout@v2
@@ -23,7 +23,7 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
     - run: |
-        docker build . -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.REPO_NAME }}:${{ github.sha }}
+        docker build ./web-api -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.REPO_NAME }}:${{ github.sha }}
         docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.REPO_NAME }}:${{ github.sha }}
 
     - uses: azure/webapps-deploy@v2
