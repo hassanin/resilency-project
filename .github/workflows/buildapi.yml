@@ -25,7 +25,7 @@ jobs:
     - name: 'docker build and push'
       working-directory: ./web-api
       run: |
-        docker build -f ./web-api/Dockerfile -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.REPO_NAME }}:${{ github.sha }}
+        docker build . -f ./web-api/Dockerfile -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.REPO_NAME }}:${{ github.sha }}
         docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.REPO_NAME }}:${{ github.sha }}
 
     - uses: azure/webapps-deploy@v2
