@@ -40,5 +40,27 @@ namespace ToggleApimCircuit
 
             return new OkObjectResult("Health v2");
         }
+        [FunctionName("OpenCircuit")]
+        public static async Task<IActionResult> OpenCircuit(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "open")] HttpRequest req,
+           ILogger log)
+        {
+            log.LogInformation("In Open Circuit");
+            await ApimManager.GetCircuitState(log);
+            await ApimManager.UpdateAPImanagment(true, log);
+            await ApimManager.GetCircuitState(log);
+            return new OkObjectResult("Health v3");
+        }
+        [FunctionName("CloseCircuit")]
+        public static async Task<IActionResult> CloseCircuit(
+          [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "close")] HttpRequest req,
+          ILogger log)
+        {
+            log.LogInformation("In Close Circuit");
+            await ApimManager.GetCircuitState(log);
+            await ApimManager.UpdateAPImanagment(false, log);
+            await ApimManager.GetCircuitState(log);
+            return new OkObjectResult("Health v4");
+        }
     }
 }
