@@ -76,9 +76,9 @@ namespace ToggleApimCircuit
             var httpContnet = new StringContent(payLoadString, encoding: Encoding.UTF8, "application/json");
             HttpResponseMessage response = await httpClient.PutAsync(URI, httpContnet);
             var httpsResponse = await response.Content.ReadAsStringAsync();
-            var JSONObject = JsonConvert.DeserializeObject<object>(httpsResponse);
+            //var JSONObject = JsonConvert.DeserializeObject<object>(httpsResponse);
 
-            log.LogInformation(JSONObject.ToString());
+            //log.LogInformation(JSONObject.ToString());
             log.LogInformation($"httpRes is {httpsResponse}");
             //var JSONObj = new JavaScriptSerializer().Deserialize<Dictionary<string, string>>(JSONObject);
             return response.StatusCode.ToString();
