@@ -38,7 +38,7 @@ namespace ToggleApimCircuit
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            return new OkObjectResult("Health v2");
+            return new OkObjectResult("Health v12");
         }
         [FunctionName("OpenCircuit")]
         public static async Task<IActionResult> OpenCircuit(
