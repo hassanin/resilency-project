@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "ToggleApimCircuit": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7086"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 33892,
+      "useSSL": false
+    }
+  }
+}
