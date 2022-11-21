@@ -11,7 +11,7 @@ namespace web_api.Controllers
         [HttpGet]
         public async Task<string> GetFactorial(int number)
         {
-            await Task.Delay(100);
+            await Task.Delay(6000);
             return Factorial(number).ToString();
         }
 
@@ -19,7 +19,7 @@ namespace web_api.Controllers
         [HttpPost]
         public async Task<FactorialResponse> GetFactorial2([FromBody] FactorialRequest factorialRequest)
         {
-            await Task.Delay(100);
+            await Task.Delay(6000);
             var factorialResult = Factorial(factorialRequest.Number);
             var result = new FactorialResponse() { Result = factorialResult, version = "1.0" };
             return result;
